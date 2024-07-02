@@ -8,6 +8,7 @@ public class SpawnPlayer: MonoBehaviour
 
     private void Start()
     {
-        PhotonNetwork.Instantiate(_player.name, spawnPosition.position, Quaternion.identity);
+       var player = PhotonNetwork.Instantiate(_player.name, spawnPosition.position, Quaternion.identity);
+        PhotonNetwork.NickName = "player " + Random.Range(0, 1000);
     }
 }
