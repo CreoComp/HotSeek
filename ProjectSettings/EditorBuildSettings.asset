@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/LoadScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Vlad.unity
+    guid: eab0a73a5161ba94898ee909ee64af0a
+  - enabled: 1
+    path: Assets/Scenes/Vova.unity
+    guid: d79a56ef29fb6b74c9ac7bc31f93a4b6
   m_configObjects: {}
