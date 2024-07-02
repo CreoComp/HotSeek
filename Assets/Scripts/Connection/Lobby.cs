@@ -2,12 +2,11 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Lobby : MonoBehaviourPunCallbacks
 {
     private string roomName;
-    [SerializeField] private InputField input;
+    [SerializeField] private TMPro.TMP_InputField input;
     public void CreateRoom()
     {
         RoomOptions roomOptions = new RoomOptions();
