@@ -29,15 +29,15 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
             {
                 if (hit.transform.TryGetComponent(out CatchPlayer player))
                 {
-                    view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, player);
-                    view.RPC("UnSetPotatoFromPlayer", RpcTarget.AllBuffered, this);
+                    view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().OwnerActorNr);
+                    view.RPC("UnSetPotatoFromPlayer", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
                 }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            view.RPC("SetPotatoToPlayer", RpcTarget.All, this);
+            view.RPC("SetPotatoToPlayer", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
         }
     }
 
@@ -50,27 +50,29 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
     {
         isHotPotato = true;
         textCatch.text = "У ВАС КАРТОХА!!!1Й1!";
+        GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
     public void UnSetHotPotato()
     {
         isHotPotato = true;
         textCatch.text = "БЕГИИИИ .... БЕГИИИИ";
+        GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 
     [PunRPC]
-    public void SetPotatoToPlayer(CatchPlayer player)
+    public void SetPotatoToPlayer(int ActorId)
     {
-        if(player == this)
+        if(PhotonNetwork.LocalPlayer.ActorNumber == ActorId)
         {
             SetHotPotato();
         }
     }
 
     [PunRPC]
-    public void UnSetPotatoFromPlayer(CatchPlayer player)
+    public void UnSetPotatoFromPlayer(int ActorId)
     {
-        if (player == this)
+        if (PhotonNetwork.LocalPlayer.ActorNumber == ActorId)
         {
             UnSetHotPotato();
         }

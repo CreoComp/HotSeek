@@ -1,7 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-public class SpawnPlayer: MonoBehaviour
+public class SpawnPlayer: MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject _player;
     [SerializeField] private Transform spawnPosition;
