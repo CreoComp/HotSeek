@@ -9,7 +9,7 @@ public class PlayerCamera : MonoBehaviour
 
     private float rotationX = 0f;
 
-    /*private void Update()
+    private void Update()
     {
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y") ;
@@ -20,5 +20,5 @@ public class PlayerCamera : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -maxYAngle, maxYAngle);
 
         transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
-    }*/
+    }
 }
