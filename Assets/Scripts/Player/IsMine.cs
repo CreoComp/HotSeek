@@ -7,7 +7,7 @@ public class IsMine : MonoBehaviour
     [SerializeField] private PhotonView view;
     [SerializeField] private GameObject cam;
 
-    private void Start()
+    private void Awake()
     {
         if (!view.IsMine)
         {
