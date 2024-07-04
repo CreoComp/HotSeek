@@ -26,7 +26,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        SceneManager.LoadScene("Game");
+       PhotonNetwork.LoadLevel("Game");
         Debug.Log("<color=green>Connected</color> to room " + roomName);
     }
 }
