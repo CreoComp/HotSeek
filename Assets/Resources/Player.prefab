@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 135457780636188991}
   - component: {fileID: 1360683298623390458}
   - component: {fileID: 5254135628420179680}
+  - component: {fileID: 9095881057436754752}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -475,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3278242b5580ecc489bc1fae456121f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {fileID: 0}
+  movement: {fileID: 9095881057436754752}
   view: {fileID: 135457780636188991}
   cam: {fileID: 4505889386260365918}
 --- !u!114 &5254135628420179680
@@ -493,6 +494,20 @@ MonoBehaviour:
   textCatch: {fileID: 3922631646585193413}
   rayStartPosition: {fileID: 8945266405988051612}
   distance: 5
+--- !u!114 &9095881057436754752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4505889386506513005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb0c26a735980746b12eb9782f1996a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 4505889386506513002}
+  speed: 12
 --- !u!1 &4715982845248875671
 GameObject:
   m_ObjectHideFlags: 0
