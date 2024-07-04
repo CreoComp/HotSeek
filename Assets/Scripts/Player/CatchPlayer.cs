@@ -29,7 +29,7 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
             {
                 if (hit.transform.TryGetComponent(out CatchPlayer player))
                 {
-                    view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().OwnerActorNr);
+                    view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().ControllerActorNr);
                     view.RPC("UnSetPotatoFromPlayer", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
                 }
             }
@@ -63,8 +63,10 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetPotatoToPlayer(int ActorId)
     {
+        Debug.Log("Set potato to new player");
         if(PhotonNetwork.LocalPlayer.ActorNumber == ActorId)
         {
+            Debug.Log("this player with id " + ActorId);
             SetHotPotato();
         }
     }
