@@ -64,7 +64,7 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
     public void SetPotatoToPlayer(int ActorId)
     {
         Debug.Log("Set potato to new player");
-        if(PhotonNetwork.LocalPlayer.ActorNumber == ActorId)
+        if(view.ControllerActorNr == ActorId)
         {
             Debug.Log("this player with id " + ActorId);
             SetHotPotato();
@@ -74,7 +74,7 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
     [PunRPC]
     public void UnSetPotatoFromPlayer(int ActorId)
     {
-        if (PhotonNetwork.LocalPlayer.ActorNumber == ActorId)
+        if (view.ControllerActorNr == ActorId)
         {
             UnSetHotPotato();
         }
