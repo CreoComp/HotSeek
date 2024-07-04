@@ -37,7 +37,15 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            view.RPC("SetPotatoToPlayer", RpcTarget.All, view.ControllerActorNr);
+            view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, 2);
         }
     }
 
@@ -63,7 +71,7 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetPotatoToPlayer(int ActorId)
     {
-        Debug.Log("Set potato to new player");
+        Debug.Log("Set potato to new player " + ActorId);
         if(view.ControllerActorNr == ActorId)
         {
             Debug.Log("this player with id " + ActorId);
