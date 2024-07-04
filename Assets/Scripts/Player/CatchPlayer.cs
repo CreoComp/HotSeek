@@ -3,7 +3,7 @@ using UnityEngine;
 using Photon;
 using Photon.Pun;
 
-public class CatchPlayer: MonoBehaviourPunCallbacks
+public class CatchPlayer : MonoBehaviourPun
 {
     public TextMeshProUGUI textCatch;
     private bool isHotPotato;
@@ -71,20 +71,27 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetPotatoToPlayer(int ActorId)
     {
-        Debug.Log("Set potato to new player " + ActorId);
-        if(view.ControllerActorNr == ActorId)
-        {
-            Debug.Log("this player with id " + ActorId);
-            SetHotPotato();
-        }
+        PhotonView targetView = FindPhotonViewByControllerActorNr(ActorId);
+        targetView.GetComponent<CatchPlayer>().SetHotPotato();
     }
 
     [PunRPC]
     public void UnSetPotatoFromPlayer(int ActorId)
     {
-        if (view.ControllerActorNr == ActorId)
+        PhotonView targetView = FindPhotonViewByControllerActorNr(ActorId);
+        targetView.GetComponent<CatchPlayer>().UnSetHotPotato();
+    }
+
+    PhotonView FindPhotonViewByControllerActorNr(int actorNumber)
+    {
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        foreach (PhotonView view in photonViews)
         {
-            UnSetHotPotato();
+            if (view.ControllerActorNr == actorNumber)
+            {
+                return view;
+            }
         }
+        return null;
     }
 }
