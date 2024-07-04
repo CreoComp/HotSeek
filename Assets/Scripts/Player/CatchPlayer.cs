@@ -21,7 +21,7 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
         if (!view.IsMine)
             return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isHotPotato)
         {
             RaycastHit hit;
             Ray ray = new Ray(rayStartPosition.position, rayStartPosition.forward * distance);
@@ -30,14 +30,14 @@ public class CatchPlayer: MonoBehaviourPunCallbacks
                 if (hit.transform.TryGetComponent(out CatchPlayer player))
                 {
                     view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().ControllerActorNr);
-                    view.RPC("UnSetPotatoFromPlayer", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
+                    view.RPC("UnSetPotatoFromPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
                 }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            view.RPC("SetPotatoToPlayer", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
+            view.RPC("SetPotatoToPlayer", RpcTarget.All, view.ControllerActorNr);
         }
     }
 
