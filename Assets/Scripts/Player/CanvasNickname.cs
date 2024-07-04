@@ -10,6 +10,8 @@ public class CanvasNickname : MonoBehaviour
     {
         camera = FindObjectOfType<Camera>();
         GetComponent<Canvas>().worldCamera = camera;
+
+        if(PhotonNetwork.NickName == "")
         textNick.text = transform.parent.GetComponent<PhotonView>().Owner.NickName;
     }
 
