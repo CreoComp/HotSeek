@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -33,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float speedMove;
 
+    private Vector3 hitClimbPoint;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -42,17 +46,22 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleMovement();
         HandleJump();
-        HandleWallRun();
+       // HandleWallRun();
         HandleClimb();
         UpdateAnimator();
     }
 
     void HandleMovement()
     {
+        if (isClimbing)
+            return;
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
         Vector3 move = new Vector3(horizontal, 0f, vertical).normalized;
+        animator.SetFloat("Speed", move.normalized.magnitude);
+
 
         if (move.magnitude >= 0.1f)
         {
@@ -96,13 +105,20 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+    IEnumerator JumpAnimation()
+    {
+        animator.SetTrigger("JumpStart");
+        yield return new WaitForSeconds(0.233f);
+        animator.SetTrigger("JumpLand");
+
+    }
 
     void HandleJump()
     {
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            animator.SetTrigger("JumpStart");
+            StartCoroutine(JumpAnimation());
             isJumping = true;
         }
 
@@ -116,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void HandleWallRun()
+    /*void HandleWallRun()
     {
         if (!isGrounded && Input.GetKey(KeyCode.W))
         {
@@ -153,34 +169,59 @@ public class PlayerMovement : MonoBehaviour
             isWallRunning = false;
             wallRunTime = 0;
         }
-    }
+    }*/
 
     void HandleClimb()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (isClimbing && (isGrounded))
+            return;
+
+        Debug.DrawRay(transform.position + Vector3.up * climbHeight, transform.forward * 11f + transform.up);
+        Debug.DrawRay(transform.position + Vector3.up * climbHeight, transform.forward * 11f - transform.up);
+
+        bool isUpRaycast = false;
+        bool isDownRaycast = false;
+
+        if (Physics.Raycast(transform.position + Vector3.up * climbHeight, transform.forward * 11f + transform.up, out RaycastHit hit1, 1f))
         {
-            if (Physics.Raycast(transform.position + Vector3.up * climbHeight, transform.forward, out RaycastHit hit, 1f, climbMask))
+            if (hit1.distance < 1f && hit1.normal.y < 0.1f)
             {
-                if (hit.distance < 1f && hit.normal.y < 0.1f)
-                {
-                    // Trigger climb animation and adjust player's position
-                    animator.SetTrigger("ClimbStart");
-                    StartCoroutine(PerformClimb(hit.point));
-                }
+                // Trigger climb animation and adjust player's position
+                isUpRaycast = true;
             }
         }
+
+        if (Physics.Raycast(transform.position + Vector3.up * climbHeight, transform.forward * 11f - transform.up, out RaycastHit hit2, 1f))
+        {
+            if (hit2.distance < 1f && hit2.normal.y < 0.1f)
+            {
+                // Trigger climb animation and adjust player's position
+                isDownRaycast = true;
+            }
+        }
+
+        if (isDownRaycast && !isUpRaycast)
+        {
+
+            animator.SetTrigger("ClimbStart");
+            StartCoroutine(PerformClimb((transform.position + Vector3.up * climbHeight) + transform.forward));
+        }
     }
+
+
 
     void UpdateAnimator()
     {
         animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("isRunning", isRunning);
-        animator.SetFloat("Speed", controller.velocity.magnitude);
         animator.SetBool("isWallRunning", isWallRunning);
         animator.SetBool("isRolling", isRolling);
 
         // Set the vertical velocity parameter
         animator.SetFloat("VerticalVelocity", velocity.y);
+
+        if(isGrounded)
+            animator.SetBool("isFalling", false);
 
         if (isGrounded && isJumping)
         {
@@ -199,9 +240,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Move player to the target position (above the ledge)
         Vector3 startPosition = transform.position;
-        Vector3 endPosition = new Vector3(targetPoint.x, targetPoint.y + controller.height / 2, targetPoint.z);
+        Vector3 endPosition = new Vector3(targetPoint.x, targetPoint.y + controller.height / 10, targetPoint.z);
 
-        float climbDuration = 1f; // Adjust this based on animation length
+        float climbDuration = 1.1f; // Adjust this based on animation length
         float elapsedTime = 0f;
 
         while (elapsedTime < climbDuration)
