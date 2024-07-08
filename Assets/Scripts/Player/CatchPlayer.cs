@@ -1,7 +1,6 @@
-﻿using TMPro;
+﻿using Photon.Pun;
+using TMPro;
 using UnityEngine;
-using Photon;
-using Photon.Pun;
 
 public class CatchPlayer : MonoBehaviourPun
 {
@@ -10,6 +9,8 @@ public class CatchPlayer : MonoBehaviourPun
     public Transform rayStartPosition;
     public float distance = 5f;
     private PhotonView view;
+
+    public bool IsHotPotato => isHotPotato;
 
     private void Start()
     {
@@ -39,14 +40,6 @@ public class CatchPlayer : MonoBehaviourPun
         {
             view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
         }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, 2);
-        }
     }
 
     private void OnGUI()
@@ -64,7 +57,7 @@ public class CatchPlayer : MonoBehaviourPun
     public void UnSetHotPotato()
     {
         isHotPotato = true;
-        textCatch.text = "БЕГИИИИ .... БЕГИИИИ";
+        textCatch.text = "БЕГИИИИ **** БЕГИИИИ";
         GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 
