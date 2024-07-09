@@ -13,6 +13,14 @@ public class RoundSystem: MonoBehaviour
 
         if (view.AmOwner)
             gameObject.AddComponent<OwnerRoundSystem>();
+
+
+        view.RPC("AddNewPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
+    }
+
+    private void OnDestroy()
+    {
+        view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
     }
 
     [PunRPC]
@@ -36,6 +44,7 @@ public class RoundSystem: MonoBehaviour
 
     public void Boom()
     {
+        view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
         PhotonNetwork.LeaveLobby(); // сделать наблюдателя
     }
 

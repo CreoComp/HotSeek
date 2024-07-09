@@ -19,12 +19,15 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     public void AddNewPlayer(int ActorId)
     {
         players.Add(FindPhotonViewByControllerActorNr(ActorId));
+        Debug.Log("player connect with id " + ActorId);
     }
 
     [PunRPC]
-    public void DisconnectPlayer(int ActorId)
+    public void DefeatPlayer(int ActorId)
     {
         players.Remove(FindPhotonViewByControllerActorNr(ActorId));
+        Debug.Log("player defeat with id " + ActorId);
+
     }
 
     public void StartGameButton()
@@ -34,7 +37,11 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     }
     public void SetRandomPlayerHot()
     {
-        
+        if (players.Count <= 1)
+        {
+            view.RPC("End", RpcTarget.AllBuffered);
+            return;
+        }
 
         PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
         int randomActorId = photonViews[UnityEngine.Random.Range(0, photonViews.Length)].ControllerActorNr;

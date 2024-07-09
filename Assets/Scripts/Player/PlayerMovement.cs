@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isRolling;
     private bool isJumping;
     private bool isClimbing;
+    private bool isFalling;
 
     private float speedMove;
 
@@ -96,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
                 isRunning = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftControl) && move != Vector3.zero)
+            if (Input.GetKeyDown(KeyCode.LeftControl) && move != Vector3.zero && isGrounded)
             {
                 StartCoroutine(PerformRoll());
             }
@@ -208,8 +209,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
     void UpdateAnimator()
     {
         animator.SetBool("isGrounded", isGrounded);
@@ -229,6 +228,13 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", false);
             animator.SetBool("isFalling", false);
             isJumping = false;
+            isFalling = true;
+        }
+
+        if(isGrounded && isFalling)
+        {
+            isFalling = false;
+            //StartCoroutine(PerformRoll());
         }
     }
 
@@ -260,10 +266,14 @@ public class PlayerMovement : MonoBehaviour
 
     System.Collections.IEnumerator PerformRoll()
     {
+        animator.SetTrigger("Roll");
         isRolling = true;
-        float rollDuration = 0.5f; // Adjust this based on animation length
-        controller.Move(transform.forward * rollSpeed * rollDuration);
-        yield return new WaitForSeconds(rollDuration);
+        float rollDuration = 1f / 90f; // Adjust this based on animation length
+        for (int i = 0; i < 90; i++)
+        {
+            controller.Move(transform.forward * rollSpeed * rollDuration * (i / 90f));
+            yield return new WaitForSeconds(rollDuration);
+        }
         isRolling = false;
     }
 }

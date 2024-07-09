@@ -41,6 +41,13 @@ MonoBehaviour:
   - RespawnSpaceship
   - SetPotatoToPlayer
   - UnSetPotatoFromPlayer
+  - Start
+  - End
+  - TimerToStart
+  - Boom
+  - FindBoomPlayer
+  - AddNewPlayer
+  - DisconnectPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
