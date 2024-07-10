@@ -60,7 +60,7 @@ public class CatchPlayer : MonoBehaviourPun
 
     public void UnSetHotPotato()
     {
-        isHotPotato = true;
+        isHotPotato = false;
 
         if (view.IsMine)
             textCatch.text = "БЕГИ";

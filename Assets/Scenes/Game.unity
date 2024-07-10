@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u0411\u0415\u0413\u0418"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 879b580e6d8d7ae41bb931985cd38f53, type: 2}
   m_sharedMaterial: {fileID: 6617668853349116129, guid: 879b580e6d8d7ae41bb931985cd38f53, type: 2}
