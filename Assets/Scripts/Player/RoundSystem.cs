@@ -14,6 +14,7 @@ public class RoundSystem: MonoBehaviour
         if (PhotonNetwork.IsMasterClient && view.IsMine)
             gameObject.AddComponent<OwnerRoundSystem>();
 
+        if(view.IsMine)
         view.RPC("AddNewPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
     }
 
