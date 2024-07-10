@@ -44,18 +44,7 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
         if (players.Count <= 1)
         {
             Debug.Log("end game");
-
-            PhotonView targetView = FindObjectOfType<RestartGame>().GetComponent<PhotonView>();
-            if (targetView == null) // когда живой мастер
-            {
-                Debug.Log("alive masteer");
-
-                FindObjectOfType<RestartGame>().AddComponent<PhotonView>().RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
-            }
-            else
-            {
-                targetView.RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
-            }
+            view.RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
             return;
         }
 
@@ -64,6 +53,13 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
         Debug.Log("setHot " + randomActorId);
 
         view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, randomActorId);
+    }
+
+    [PunRPC]
+    public void WinRPC(int ActorID)
+    {
+        Debug.Log("restart");
+        FindObjectOfType<RestartGame>().Restart(FindPhotonViewByControllerActorNr(ActorID).Owner.NickName);
     }
 
     public void TimeToBoomPlayer()

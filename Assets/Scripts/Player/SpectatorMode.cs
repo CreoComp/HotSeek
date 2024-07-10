@@ -11,10 +11,10 @@ public class SpectatorMode: MonoBehaviour
     private bool isSpectator;
 
 
-    public void SetMode()
+    public void SetMode(PhotonView _view)
     {
         isSpectator = true;
-        view = gameObject.AddComponent<PhotonView>();
+        view = _view;
 
         players = FindObjectsOfType<PhotonView>().ToList();
         players.Remove(view);

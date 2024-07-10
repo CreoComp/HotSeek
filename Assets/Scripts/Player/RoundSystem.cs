@@ -76,7 +76,7 @@ public class RoundSystem: MonoBehaviour
     }
 
     [PunRPC]
-    public void DestroyMasterClientWhenHimDefeat(int ActorID)
+    public void DestroyClientWhenHimDefeat(int ActorID)
     {
         var master = FindPhotonViewByControllerActorNr(ActorID);
         foreach (Transform child in transform)
@@ -90,16 +90,8 @@ public class RoundSystem: MonoBehaviour
 
     public void SetSpectator()
     {
-        Camera.main.GetComponent<SpectatorMode>().SetMode();
-        if (PhotonNetwork.IsMasterClient)
-        {
-            view.RPC("DestroyMasterClientWhenHimDefeat", RpcTarget.AllBuffered, view.ControllerActorNr);
-        }
-        else
-        {
-            PhotonNetwork.Destroy(gameObject);
-        }
-
+        Camera.main.GetComponent<SpectatorMode>().SetMode(view);
+        view.RPC("DestroyClientWhenHimDefeat", RpcTarget.AllBuffered, view.ControllerActorNr);
     }
 
     PhotonView FindPhotonViewByControllerActorNr(int actorNumber)
