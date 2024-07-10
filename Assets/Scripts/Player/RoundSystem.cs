@@ -57,10 +57,10 @@ public class RoundSystem: MonoBehaviour
     }
 
     [PunRPC]
-    public void FindBoomPlayer(int ActorId)
+    public void FindBoomPlayer()
     {
-        PhotonView playerView = FindPhotonViewByControllerActorNr(ActorId);
-        playerView.GetComponent<RoundSystem>().Boom();
+        if(GetComponent<CatchPlayer>().IsHotPotato)
+        view.GetComponent<RoundSystem>().Boom();
     }
 
     public void Boom()
