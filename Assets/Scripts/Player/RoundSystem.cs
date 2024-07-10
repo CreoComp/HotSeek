@@ -63,7 +63,7 @@ public class RoundSystem: MonoBehaviour
     public void FindBoomPlayer()
     {
         if(GetComponent<CatchPlayer>().IsHotPotato)
-        view.GetComponent<RoundSystem>().Boom();
+        Boom();
     }
 
     public void Boom()
@@ -74,11 +74,30 @@ public class RoundSystem: MonoBehaviour
         SetSpectator();
     }
 
+    [PunRPC]
+    public void DestroyMasterClientWhenHimDefeat(int ActorID)
+    {
+        var master = FindPhotonViewByControllerActorNr(ActorID);
+        foreach (var obj in master.GetComponentsInChildren<GameObject>())
+        {
+            Destroy(obj);
+            Destroy(GetComponent<CatchPlayer>());
+            Destroy(GetComponent<PlayerMovement>());
+        }
+    }
+
     public void SetSpectator()
     {
-
         Camera.main.GetComponent<SpectatorMode>().SetMode();
-        PhotonNetwork.Destroy(gameObject);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            view.RPC("DestroyMasterClientWhenHimDefeat", RpcTarget.AllBuffered, view.ControllerActorNr);
+        }
+        else
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
 
     }
 
