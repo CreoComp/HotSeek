@@ -5,6 +5,7 @@ public class RoundSystem: MonoBehaviour
 {
     private PlayerTimerText playerTimerText;
     private PhotonView view;
+    private OwnerRoundSystem ownerRoundSystem;
 
     private void Start()
     {
@@ -12,7 +13,7 @@ public class RoundSystem: MonoBehaviour
         view = GetComponent<PhotonView>();
 
         if (PhotonNetwork.IsMasterClient && view.IsMine)
-            gameObject.AddComponent<OwnerRoundSystem>();
+            ownerRoundSystem = gameObject.AddComponent<OwnerRoundSystem>();
 
         if(view.IsMine)
         view.RPC("AddNewPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
