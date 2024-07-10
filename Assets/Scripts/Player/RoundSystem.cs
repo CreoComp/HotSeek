@@ -52,7 +52,7 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void TimerToStart()
     {
-        playerTimerText.StartTimer();
+        FindMine().GetComponent<RoundSystem>().playerTimerText.StartTimer();
     }
 
     [PunRPC]
@@ -96,5 +96,18 @@ public class RoundSystem: MonoBehaviour
             }
         }
         return null;
-    }  
+    }
+
+    PhotonView FindMine()
+    {
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        foreach (PhotonView _view in photonViews)
+        {
+            if (_view.ControllerActorNr == PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                return _view;
+            }
+        }
+        return null;
+    }
 }
