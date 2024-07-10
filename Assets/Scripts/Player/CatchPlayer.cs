@@ -59,7 +59,7 @@ public class CatchPlayer : MonoBehaviourPun
     {
         isHotPotato = true;
         textCatch.text = "БЕГИИИИ **** БЕГИИИИ";
-        GetComponent<MeshRenderer>().material.color = Color.blue;
+        //GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 
     [PunRPC]
