@@ -11,7 +11,7 @@ public class RoundSystem: MonoBehaviour
         playerTimerText = FindObjectOfType<PlayerTimerText>();
         view = GetComponent<PhotonView>();
 
-        if (view.AmOwner)
+        if (PhotonNetwork.IsMasterClient)
             gameObject.AddComponent<OwnerRoundSystem>();
 
         view.RPC("AddNewPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
@@ -25,7 +25,7 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void AddNewPlayer(int ActorId)
     {
-        if(view.AmOwner)
+        if (PhotonNetwork.IsMasterClient)
         {
             GetComponent<OwnerRoundSystem>().AddNewPlayer(ActorId);
         }
@@ -34,7 +34,7 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void DefeatPlayer(int ActorId)
     {
-        if (view.AmOwner)
+        if (PhotonNetwork.IsMasterClient)
         {
             GetComponent<OwnerRoundSystem>().DefeatPlayer(ActorId);
         }
