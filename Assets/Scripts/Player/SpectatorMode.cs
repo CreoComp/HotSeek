@@ -18,6 +18,14 @@ public class SpectatorMode: MonoBehaviour
         players = FindObjectsOfType<PhotonView>().ToList();
         players.Remove(view);
 
+        for(int i = 0; i < players.Count; i++) 
+        {
+            if (players[i] == null)
+            {
+                players.RemoveAt(i);
+            }
+        }
+
         SetSpectateToPlayer(players[playerIndex]);
     }
 
