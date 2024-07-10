@@ -12,7 +12,7 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     void Awake()
     {
         view = GetComponent<PhotonView>();
-        startButton.SetActive(true);
+        //startButton.SetActive(true);
     }
 
     [PunRPC] 

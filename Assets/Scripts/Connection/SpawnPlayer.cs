@@ -10,5 +10,6 @@ public class SpawnPlayer: MonoBehaviourPunCallbacks
     {
        var player = PhotonNetwork.Instantiate(_player, spawnPosition.position, Quaternion.identity);
         PhotonNetwork.NickName = "player " + Random.Range(0, 1000);
+        Camera.main.GetComponent<PlayerCamera>().target = player.transform;
     }
 }
