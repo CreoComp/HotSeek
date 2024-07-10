@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerTimerText: MonoBehaviour
 {
+    public GameObject panelTimer;
     public TextMeshProUGUI textTimer;
     public bool isTimerToStart;
     public bool isStarted;
@@ -26,6 +27,7 @@ public class PlayerTimerText: MonoBehaviour
     public void StopTimer()
     {
         isStarted = false;
+        panelTimer.SetActive(false);
     }
 
     private void Update()
@@ -65,6 +67,7 @@ public class PlayerTimerText: MonoBehaviour
         }
         else
         {
+            ownerRoundSystem = FindObjectOfType<OwnerRoundSystem>();
             if (ownerRoundSystem != null)
             {
                 ownerRoundSystem.TimeToBoomPlayer();

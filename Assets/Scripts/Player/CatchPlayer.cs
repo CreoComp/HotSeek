@@ -54,7 +54,7 @@ public class CatchPlayer : MonoBehaviourPun
         isHotPotato = true;
 
         if (view.IsMine)
-            textCatch.text = "У ВАС КАРТОХА!!!1Й1!";
+            textCatch.text = "ДОГОНЯЙ";
         //GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
@@ -63,7 +63,7 @@ public class CatchPlayer : MonoBehaviourPun
         isHotPotato = true;
 
         if (view.IsMine)
-            textCatch.text = "БЕГИИИИ **** БЕГИИИИ";
+            textCatch.text = "БЕГИ";
         //GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 

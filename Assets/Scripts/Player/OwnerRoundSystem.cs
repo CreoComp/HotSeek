@@ -39,7 +39,7 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     {
         if (players.Count <= 1)
         {
-            view.RPC("Win", RpcTarget.AllBuffered, players[0].ControllerActorNr);
+            FindObjectOfType<RestartGame>().GetComponent<PhotonView>().RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
             return;
         }
 

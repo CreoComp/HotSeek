@@ -67,8 +67,6 @@ public class RoundSystem: MonoBehaviour
     {
         if(view.IsMine)
         {
-            Debug.Log("me boom");
-
             view.RPC("DefeatPlayer", RpcTarget.MasterClient, view.ControllerActorNr);
             //PhotonNetwork.LeaveLobby();
             // сделать наблюдателя
@@ -102,15 +100,6 @@ public class RoundSystem: MonoBehaviour
             PhotonNetwork.Destroy(gameObject);
         }
 
-    }
-
-    [PunRPC]
-    public void Win(int ActorID)
-    {
-        if(ActorID == view.ControllerActorNr)
-        {
-            view.RPC("Restart", RpcTarget.AllBuffered, PhotonNetwork.NickName);
-        }
     }
 
     PhotonView FindPhotonViewByControllerActorNr(int actorNumber)

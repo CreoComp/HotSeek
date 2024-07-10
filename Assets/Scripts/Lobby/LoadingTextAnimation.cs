@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -27,11 +26,6 @@ public class LoadingTextAnimation : MonoBehaviour
             TextArea.text = "Loading...";
             yield return new WaitForSeconds(0.1f);
         }
-    }
-
-    void asd()
-    {
-
     }
 }
 
