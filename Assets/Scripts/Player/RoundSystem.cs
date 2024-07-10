@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoundSystem: MonoBehaviour
@@ -45,7 +46,15 @@ public class RoundSystem: MonoBehaviour
     public void Boom()
     {
         view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
-        PhotonNetwork.LeaveLobby(); // сделать наблюдателя
+        //PhotonNetwork.LeaveLobby(); 
+        // сделать наблюдателя
+        SetSpectator();
+    }
+
+    public void SetSpectator()
+    {
+        Camera.main.AddComponent<SpectatorMode>();
+        Destroy(gameObject);
     }
 
     PhotonView FindPhotonViewByControllerActorNr(int actorNumber)

@@ -99,8 +99,13 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftControl) && move != Vector3.zero && isGrounded)
             {
+                StopCoroutine(PerformRoll());
                 StartCoroutine(PerformRoll());
             }
+        }
+        else
+        {
+            isRunning = false;
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -219,8 +224,10 @@ public class PlayerMovement : MonoBehaviour
         // Set the vertical velocity parameter
         animator.SetFloat("VerticalVelocity", velocity.y);
 
-        if(isGrounded)
+        if (isGrounded)
+        {
             animator.SetBool("isFalling", false);
+        }
 
         if (isGrounded && isJumping)
         {
@@ -231,11 +238,6 @@ public class PlayerMovement : MonoBehaviour
             isFalling = true;
         }
 
-        if(isGrounded && isFalling)
-        {
-            isFalling = false;
-            //StartCoroutine(PerformRoll());
-        }
     }
 
     System.Collections.IEnumerator PerformClimb(Vector3 targetPoint)
@@ -266,14 +268,23 @@ public class PlayerMovement : MonoBehaviour
 
     System.Collections.IEnumerator PerformRoll()
     {
-        animator.SetTrigger("Roll");
-        isRolling = true;
-        float rollDuration = 1f / 90f; // Adjust this based on animation length
-        for (int i = 0; i < 90; i++)
+        if (!isRolling)
         {
-            controller.Move(transform.forward * rollSpeed * rollDuration * (i / 90f));
-            yield return new WaitForSeconds(rollDuration);
+            isRolling = true;
+            animator.SetTrigger("Roll");
+            controller.height = 1f;
+            controller.center = new Vector3(0, 0.5f, 0);
+            yield return new WaitForSeconds(.26f);
+
+            float rollDuration = 1f / 180f; // Adjust this based on animation length
+            for (int i = 0; i < 180; i++)
+            {
+                controller.Move(transform.forward * rollSpeed * rollDuration * (i / 180f));
+                yield return new WaitForSeconds(.003f);
+            }
+            isRolling = false;
+            controller.center = new Vector3(0, 1, 0);
+            controller.height = 2f;
         }
-        isRolling = false;
     }
 }

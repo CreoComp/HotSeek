@@ -3,18 +3,16 @@ using UnityEngine;
 
 public class IsMine : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement movement;
-    [SerializeField] private PhotonView view;
-    [SerializeField] private GameObject cam;
-    [SerializeField] private CameraDemo cameraDemo;
+    private PlayerMovement movement;
+    private PhotonView view;
 
     private void Awake()
     {
+        movement = GetComponent<PlayerMovement>();
+        view = GetComponent<PhotonView>();
         if (!view.IsMine)
         {
             movement.enabled = false;
-            cam.SetActive(false);
-            cameraDemo.enabled = false;
         }
     }
 }
