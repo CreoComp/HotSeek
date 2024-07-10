@@ -15,14 +15,12 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
         //startButton.SetActive(true);
     }
 
-    [PunRPC] 
     public void AddNewPlayer(int ActorId)
     {
         players.Add(FindPhotonViewByControllerActorNr(ActorId));
         Debug.Log("player connect with id " + ActorId);
     }
 
-    [PunRPC]
     public void DefeatPlayer(int ActorId)
     {
         players.Remove(FindPhotonViewByControllerActorNr(ActorId));

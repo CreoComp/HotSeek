@@ -23,6 +23,24 @@ public class RoundSystem: MonoBehaviour
     }
 
     [PunRPC]
+    public void AddNewPlayer(int ActorId)
+    {
+        if(view.AmOwner)
+        {
+            GetComponent<OwnerRoundSystem>().AddNewPlayer(ActorId);
+        }
+    }
+
+    [PunRPC]
+    public void DefeatPlayer(int ActorId)
+    {
+        if (view.AmOwner)
+        {
+            GetComponent<OwnerRoundSystem>().DefeatPlayer(ActorId);
+        }
+    }
+
+    [PunRPC]
     public void TimerToStart()
     {
         playerTimerText.StartTimer();
