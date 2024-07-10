@@ -62,8 +62,9 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void FindBoomPlayer()
     {
-        if(GetComponent<CatchPlayer>().IsHotPotato)
-        Boom();
+        var client = FindMine().GetComponent<CatchPlayer>();
+        if (client.IsHotPotato)
+        client.GetComponent<RoundSystem>().Boom();
     }
 
     public void Boom()
