@@ -272,16 +272,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isRolling = true;
             animator.SetTrigger("Roll");
+            yield return new WaitForSeconds(.26f);
             controller.height = 1f;
             controller.center = new Vector3(0, 0.5f, 0);
-            yield return new WaitForSeconds(.26f);
-
-            float rollDuration = 1f / 180f; // Adjust this based on animation length
-            for (int i = 0; i < 180; i++)
-            {
-                controller.Move(transform.forward * rollSpeed * rollDuration * (i / 180f));
-                yield return new WaitForSeconds(.003f);
-            }
+            yield return new WaitForSeconds(.8f);
             isRolling = false;
             controller.center = new Vector3(0, 1, 0);
             controller.height = 2f;

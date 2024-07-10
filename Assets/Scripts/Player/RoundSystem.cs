@@ -1,20 +1,18 @@
 ﻿using Photon.Pun;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoundSystem: MonoBehaviour
 {
-    public PlayerTimerText playerTimerText;
+    private PlayerTimerText playerTimerText;
     private PhotonView view;
 
     private void Start()
     {
-        playerTimerText = GetComponent<PlayerTimerText>();
+        playerTimerText = FindObjectOfType<PlayerTimerText>();
         view = GetComponent<PhotonView>();
 
         if (view.AmOwner)
             gameObject.AddComponent<OwnerRoundSystem>();
-
 
         view.RPC("AddNewPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
     }
@@ -31,12 +29,6 @@ public class RoundSystem: MonoBehaviour
     }
 
     [PunRPC]
-    public void End()
-    {
-        playerTimerText.StopTimer();
-    }
-
-    [PunRPC]
     public void FindBoomPlayer(int ActorId)
     {
         PhotonView playerView = FindPhotonViewByControllerActorNr(ActorId);
@@ -46,15 +38,24 @@ public class RoundSystem: MonoBehaviour
     public void Boom()
     {
         view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
-        //PhotonNetwork.LeaveLobby(); 
+        //PhotonNetwork.LeaveLobby();
         // сделать наблюдателя
         SetSpectator();
     }
 
     public void SetSpectator()
     {
-        Camera.main.AddComponent<SpectatorMode>();
+        Camera.main.GetComponent<SpectatorMode>().SetMode();
         Destroy(gameObject);
+    }
+
+    [PunRPC]
+    public void Win(int ActorID)
+    {
+        if(ActorID == view.ControllerActorNr)
+        {
+            view.RPC("Restart", RpcTarget.AllBuffered, PhotonNetwork.NickName);
+        }
     }
 
     PhotonView FindPhotonViewByControllerActorNr(int actorNumber)
@@ -68,7 +69,5 @@ public class RoundSystem: MonoBehaviour
             }
         }
         return null;
-    }
-
-    
+    }  
 }

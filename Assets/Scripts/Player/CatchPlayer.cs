@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CatchPlayer : MonoBehaviourPun
 {
-    public TextMeshProUGUI textCatch;
+    private TextMeshProUGUI textCatch;
     private bool isHotPotato;
     public Transform rayStartPosition;
     public float distance = 5f;
@@ -14,6 +14,7 @@ public class CatchPlayer : MonoBehaviourPun
 
     private void Start()
     {
+        textCatch = FindObjectOfType<TextCatch>().GetComponent<TextMeshProUGUI>();
         view = GetComponent<PhotonView>();
     }
 

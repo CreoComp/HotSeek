@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class SpawnPlayer: MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject _player;
+    private string _player = "Player";
     [SerializeField] private Transform spawnPosition;
 
     private void Start()
     {
-       var player = PhotonNetwork.Instantiate(_player.name, spawnPosition.position, Quaternion.identity);
+       var player = PhotonNetwork.Instantiate(_player, spawnPosition.position, Quaternion.identity);
         PhotonNetwork.NickName = "player " + Random.Range(0, 1000);
     }
 }

@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class SpectatorMode: MonoBehaviour
 {
-    private PhotonView playerSpectate;
     private List<PhotonView> players = new List<PhotonView>();
     private int playerIndex;
-
     private PhotonView view;
-    private void Awake()
+    private bool isSpectator;
+
+    public void SetMode()
     {
+        isSpectator = true;
         view = gameObject.AddComponent<PhotonView>();
 
         players = FindObjectsOfType<PhotonView>().ToList();
@@ -22,6 +23,9 @@ public class SpectatorMode: MonoBehaviour
 
     private void Update()
     {
+        if (!isSpectator)
+            return;
+
         if(Input.GetMouseButtonDown(0)) 
             PreviousPlayer();
         if (Input.GetMouseButtonDown(1))
@@ -49,14 +53,5 @@ public class SpectatorMode: MonoBehaviour
     public void SetSpectateToPlayer(PhotonView view)
     {
         GetComponent<PlayerCamera>().target = view.transform;
-    }
-}
-
-public class RestartGame: MonoBehaviour
-{
-    [PunRPC]
-    public void Restart() 
-    {
-
     }
 }

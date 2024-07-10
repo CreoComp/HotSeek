@@ -27,7 +27,12 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     {
         players.Remove(FindPhotonViewByControllerActorNr(ActorId));
         Debug.Log("player defeat with id " + ActorId);
+    }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+            StartGameButton();
     }
 
     public void StartGameButton()
@@ -39,7 +44,7 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     {
         if (players.Count <= 1)
         {
-            view.RPC("End", RpcTarget.AllBuffered);
+            view.RPC("Win", RpcTarget.AllBuffered, players[0].ControllerActorNr);
             return;
         }
 
