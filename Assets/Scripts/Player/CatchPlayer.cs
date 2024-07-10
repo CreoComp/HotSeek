@@ -52,7 +52,7 @@ public class CatchPlayer : MonoBehaviourPun
     {
         isHotPotato = true;
         textCatch.text = "У ВАС КАРТОХА!!!1Й1!";
-        GetComponent<MeshRenderer>().material.color = Color.red;
+        //GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
     public void UnSetHotPotato()
