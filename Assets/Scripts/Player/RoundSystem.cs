@@ -13,7 +13,7 @@ public class RoundSystem: MonoBehaviour
         view = GetComponent<PhotonView>();
 
         if (PhotonNetwork.IsMasterClient && view.IsMine)
-            ownerRoundSystem = gameObject.AddComponent<OwnerRoundSystem>();
+            ownerRoundSystem = new GameObject().AddComponent<OwnerRoundSystem>();
 
         if(view.IsMine)
         view.RPC("AddNewPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
@@ -73,8 +73,10 @@ public class RoundSystem: MonoBehaviour
 
     public void SetSpectator()
     {
+
         Camera.main.GetComponent<SpectatorMode>().SetMode();
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
+
     }
 
     [PunRPC]
