@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OwnerRoundSystem: MonoBehaviourPunCallbacks
@@ -39,7 +40,16 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     {
         if (players.Count <= 1)
         {
-            FindObjectOfType<RestartGame>().GetComponent<PhotonView>().RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
+            PhotonView targetView = FindObjectOfType<RestartGame>().GetComponent<PhotonView>();
+            if (targetView == null) // когда живой мастер
+            {
+                FindObjectOfType<RestartGame>().AddComponent<PhotonView>();
+                view.RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
+            }
+            else
+            {
+                targetView.RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
+            }
             return;
         }
 
