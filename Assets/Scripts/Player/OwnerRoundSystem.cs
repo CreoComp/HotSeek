@@ -28,6 +28,7 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     {
         players.Remove(FindPhotonViewByControllerActorNr(ActorId));
         Debug.Log("player defeat with id " + ActorId);
+        SetRandomPlayerHot();
     }
 
     private void Update()
@@ -38,14 +39,19 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
 
     public void SetRandomPlayerHot()
     {
+        Debug.Log("set random hot Potato");
+
         if (players.Count <= 1)
         {
+            Debug.Log("end game");
+
             PhotonView targetView = FindObjectOfType<RestartGame>().GetComponent<PhotonView>();
             if (targetView == null) // когда живой мастер
             {
+                Debug.Log("alive masteer");
+
                 FindObjectOfType<RestartGame>().AddComponent<PhotonView>();
                 view.RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
-                Debug.Log("RPCrestart");
 
             }
             else
@@ -65,7 +71,6 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     public void TimeToBoomPlayer()
     {
         view.RPC("FindBoomPlayer", RpcTarget.AllBuffered);
-        SetRandomPlayerHot();
     }
 
     PhotonView FindPhotonViewByControllerActorNr(int actorNumber)

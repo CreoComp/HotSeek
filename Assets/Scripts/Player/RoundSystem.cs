@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 
 public class RoundSystem: MonoBehaviour
@@ -83,7 +84,6 @@ public class RoundSystem: MonoBehaviour
             Destroy(child.gameObject);
             Destroy(GetComponent<CatchPlayer>());
             Destroy(GetComponent<PlayerMovement>());
-
         }
 
     }
