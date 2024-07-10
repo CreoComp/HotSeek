@@ -18,6 +18,7 @@ public class RoundSystem: MonoBehaviour
         view.RPC("AddNewPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
     }
 
+
     private void OnDestroy()
     {
         view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
