@@ -89,16 +89,17 @@ public class RoundSystem: MonoBehaviour
     public void SetSpectator()
     {
         Camera.main.GetComponent<SpectatorMode>().SetMode();
-
-        if (PhotonNetwork.IsMasterClient)
+        if(view.IsMine)
         {
-            view.RPC("DestroyMasterClientWhenHimDefeat", RpcTarget.AllBuffered, view.ControllerActorNr);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                view.RPC("DestroyMasterClientWhenHimDefeat", RpcTarget.AllBuffered, view.ControllerActorNr);
+            }
+            else
+            {
+                PhotonNetwork.Destroy(gameObject);
+            }
         }
-        else
-        {
-            PhotonNetwork.Destroy(gameObject);
-        }
-
     }
 
     [PunRPC]
