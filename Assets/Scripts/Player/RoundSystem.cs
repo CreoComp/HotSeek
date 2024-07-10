@@ -28,7 +28,8 @@ public class RoundSystem: MonoBehaviour
     public void AddNewPlayer(int ActorId)
     {
         Debug.Log("Add");
-        if (TryGetComponent(out OwnerRoundSystem ownerRoundSystem))
+        OwnerRoundSystem ownerRoundSystem = GetComponent<OwnerRoundSystem>();
+        if (ownerRoundSystem != null)
         {
             ownerRoundSystem.AddNewPlayer(ActorId);
         }
@@ -37,8 +38,11 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void DefeatPlayer(int ActorId)
     {
-        if (TryGetComponent(out OwnerRoundSystem ownerRoundSystem))
-        {
+        Debug.Log("Defeat");
+
+        OwnerRoundSystem ownerRoundSystem = GetComponent<OwnerRoundSystem>();
+        if (ownerRoundSystem != null)
+        { 
             ownerRoundSystem.DefeatPlayer(ActorId);
         }
     }
