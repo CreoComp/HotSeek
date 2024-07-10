@@ -80,12 +80,14 @@ public class RoundSystem: MonoBehaviour
     public void DestroyMasterClientWhenHimDefeat(int ActorID)
     {
         var master = FindPhotonViewByControllerActorNr(ActorID);
-        foreach (var obj in master.GetComponentsInChildren<GameObject>())
+        foreach (Transform child in transform)
         {
-            Destroy(obj);
+            Destroy(child.gameObject);
             Destroy(GetComponent<CatchPlayer>());
             Destroy(GetComponent<PlayerMovement>());
+
         }
+
     }
 
     public void SetSpectator()
