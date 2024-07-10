@@ -20,6 +20,7 @@ public class RestartGame: MonoBehaviour
     [PunRPC]
     public void WinRPC(int ActorID)
     {
+        Debug.Log("restart");
         Restart(FindPhotonViewByControllerActorNr(ActorID).Owner.NickName);
     }
 

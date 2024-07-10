@@ -45,6 +45,8 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
             {
                 FindObjectOfType<RestartGame>().AddComponent<PhotonView>();
                 view.RPC("WinRPC", RpcTarget.AllBuffered, players[0].ControllerActorNr);
+                Debug.Log("RPCrestart");
+
             }
             else
             {
