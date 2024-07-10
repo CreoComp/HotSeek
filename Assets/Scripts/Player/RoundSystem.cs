@@ -40,10 +40,6 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void DefeatPlayer(int ActorId)
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
-        Debug.Log("Defeat");
-
         FindObjectOfType<OwnerRoundSystem>().DefeatPlayer(ActorId);
     }
 
@@ -71,7 +67,9 @@ public class RoundSystem: MonoBehaviour
     {
         if(view.IsMine)
         {
-            view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
+            Debug.Log("me boom");
+
+            view.RPC("DefeatPlayer", RpcTarget.MasterClient, view.ControllerActorNr);
             //PhotonNetwork.LeaveLobby();
             // сделать наблюдателя
             SetSpectator();
@@ -93,17 +91,15 @@ public class RoundSystem: MonoBehaviour
     public void SetSpectator()
     {
         Camera.main.GetComponent<SpectatorMode>().SetMode();
-        if(view.IsMine)
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                view.RPC("DestroyMasterClientWhenHimDefeat", RpcTarget.AllBuffered, view.ControllerActorNr);
-            }
-            else
-            {
-                PhotonNetwork.Destroy(gameObject);
-            }
+            view.RPC("DestroyMasterClientWhenHimDefeat", RpcTarget.AllBuffered, view.ControllerActorNr);
         }
+        else
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+
     }
 
     [PunRPC]
