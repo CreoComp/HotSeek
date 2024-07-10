@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public Transform target; // Цель, за которой следит камера
+    public Transform target;
     public float distance = 5f; // Расстояние от цели
     public float smoothSpeed = 0.125f; // Скорость следования камеры
 

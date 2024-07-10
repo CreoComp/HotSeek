@@ -69,10 +69,13 @@ public class RoundSystem: MonoBehaviour
 
     public void Boom()
     {
-        view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
-        //PhotonNetwork.LeaveLobby();
-        // сделать наблюдателя
-        SetSpectator();
+        if(view.IsMine)
+        {
+            view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
+            //PhotonNetwork.LeaveLobby();
+            // сделать наблюдателя
+            SetSpectator();
+        }
     }
 
     [PunRPC]

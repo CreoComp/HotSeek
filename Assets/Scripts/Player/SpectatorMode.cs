@@ -53,5 +53,6 @@ public class SpectatorMode: MonoBehaviour
     public void SetSpectateToPlayer(PhotonView view)
     {
         GetComponent<PlayerCamera>().target = view.transform;
+        Debug.Log("set spectate");
     }
 }
