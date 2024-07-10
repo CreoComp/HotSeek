@@ -88,6 +88,13 @@ public class RoundSystem: MonoBehaviour
 
     }
 
+    [PunRPC]
+    public void WinRPC(int ActorID)
+    {
+        Debug.Log("restart");
+        FindObjectOfType<RestartGame>().Restart(FindPhotonViewByControllerActorNr(ActorID).Owner.NickName);
+    }
+
     public void SetSpectator()
     {
         Camera.main.GetComponent<SpectatorMode>().SetMode(view);

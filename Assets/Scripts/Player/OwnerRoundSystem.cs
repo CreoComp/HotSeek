@@ -55,13 +55,6 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
         view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, randomActorId);
     }
 
-    [PunRPC]
-    public void WinRPC(int ActorID)
-    {
-        Debug.Log("restart");
-        FindObjectOfType<RestartGame>().Restart(FindPhotonViewByControllerActorNr(ActorID).Owner.NickName);
-    }
-
     public void TimeToBoomPlayer()
     {
         view.RPC("FindBoomPlayer", RpcTarget.AllBuffered);
