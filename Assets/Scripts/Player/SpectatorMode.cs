@@ -10,6 +10,7 @@ public class SpectatorMode: MonoBehaviour
     private PhotonView view;
     private bool isSpectator;
 
+
     public void SetMode()
     {
         isSpectator = true;
