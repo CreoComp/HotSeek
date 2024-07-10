@@ -10,10 +10,10 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
 
     private List<PhotonView> players = new List<PhotonView>();
 
-    void Awake()
+    public void Construct(RoundSystem _roundSystem, PhotonView _view)
     {
-        view = GetComponent<PhotonView>();
-        roundSystem = GetComponent<RoundSystem>();
+        view = _view;
+        roundSystem = _roundSystem;
         //startButton.SetActive(true);
     }
 
