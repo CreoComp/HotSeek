@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Data;
 using TMPro;
 using UnityEngine;
 
@@ -51,21 +52,25 @@ public class CatchPlayer : MonoBehaviourPun
     public void SetHotPotato()
     {
         isHotPotato = true;
-        textCatch.text = "У ВАС КАРТОХА!!!1Й1!";
+
+        if (view.IsMine)
+            textCatch.text = "У ВАС КАРТОХА!!!1Й1!";
         //GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
     public void UnSetHotPotato()
     {
         isHotPotato = true;
-        textCatch.text = "БЕГИИИИ **** БЕГИИИИ";
+
+        if (view.IsMine)
+            textCatch.text = "БЕГИИИИ **** БЕГИИИИ";
         //GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 
     [PunRPC]
     public void SetPotatoToPlayer(int ActorId)
     {
-        Debug.Log("POAOTAO");
+        Debug.Log("POAOTAO" + ActorId);
         PhotonView targetView = FindPhotonViewByControllerActorNr(ActorId);
         targetView.GetComponent<CatchPlayer>().SetHotPotato();
     }
