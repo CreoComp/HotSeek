@@ -65,6 +65,7 @@ public class CatchPlayer : MonoBehaviourPun
     [PunRPC]
     public void SetPotatoToPlayer(int ActorId)
     {
+        Debug.Log("POAOTAO");
         PhotonView targetView = FindPhotonViewByControllerActorNr(ActorId);
         targetView.GetComponent<CatchPlayer>().SetHotPotato();
     }

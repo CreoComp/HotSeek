@@ -45,6 +45,8 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
 
         PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
         int randomActorId = photonViews[UnityEngine.Random.Range(0, photonViews.Length)].ControllerActorNr;
+        Debug.Log("setHot " + randomActorId);
+
         view.RPC("SetPotatoToPlayer", RpcTarget.AllBuffered, randomActorId);
     }
 

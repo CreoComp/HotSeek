@@ -14,7 +14,7 @@ public class PlayerTimerText: MonoBehaviour
 
     private void Start()
     {
-        ownerRoundSystem = FindObjectOfType<OwnerRoundSystem>();
+        
     }
 
     public void StartTimer()
@@ -45,6 +45,7 @@ public class PlayerTimerText: MonoBehaviour
         }
         else
         {
+            ownerRoundSystem = FindObjectOfType<OwnerRoundSystem>();
             if (ownerRoundSystem != null)
             {
                 ownerRoundSystem.SetRandomPlayerHot();
