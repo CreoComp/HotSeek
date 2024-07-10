@@ -27,6 +27,7 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void AddNewPlayer(int ActorId)
     {
+        Debug.Log("Add");
         if (TryGetComponent(out OwnerRoundSystem ownerRoundSystem))
         {
             ownerRoundSystem.AddNewPlayer(ActorId);
