@@ -23,10 +23,10 @@ public class RoundSystem: MonoBehaviour
     }
 
 
-    private void OnDestroy()
+/*    private void OnDestroy()
     {
         view.RPC("DefeatPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
-    }
+    }*/
 
     [PunRPC]
     public void AddNewPlayer(int ActorId)
