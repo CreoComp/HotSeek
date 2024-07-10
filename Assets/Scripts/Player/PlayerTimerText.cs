@@ -14,10 +14,7 @@ public class PlayerTimerText: MonoBehaviour
 
     private void Start()
     {
-        if(TryGetComponent(out OwnerRoundSystem ownerRoundSystem))
-        {
-            this.ownerRoundSystem = ownerRoundSystem;
-        }
+        ownerRoundSystem = FindObjectOfType<OwnerRoundSystem>();
     }
 
     public void StartTimer()
