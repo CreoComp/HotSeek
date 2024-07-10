@@ -6,12 +6,14 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
 {
     public GameObject startButton;
     private PhotonView view;
+    private RoundSystem roundSystem;
 
     private List<PhotonView> players = new List<PhotonView>();
 
     void Awake()
     {
         view = GetComponent<PhotonView>();
+        roundSystem = GetComponent<RoundSystem>();
         //startButton.SetActive(true);
     }
 
@@ -30,14 +32,9 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
-            StartGameButton();
+            roundSystem.StartGameButton();
     }
 
-    public void StartGameButton()
-    {
-        view.RPC("TimerToStart", RpcTarget.AllBuffered);
-        startButton.SetActive(false);
-    }
     public void SetRandomPlayerHot()
     {
         if (players.Count <= 1)

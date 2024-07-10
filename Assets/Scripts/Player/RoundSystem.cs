@@ -43,6 +43,12 @@ public class RoundSystem: MonoBehaviour
         FindObjectOfType<OwnerRoundSystem>().DefeatPlayer(ActorId);
     }
 
+    public void StartGameButton()
+    {
+        view.RPC("TimerToStart", RpcTarget.AllBuffered);
+        // startButton.SetActive(false);
+    }
+
     [PunRPC]
     public void TimerToStart()
     {
