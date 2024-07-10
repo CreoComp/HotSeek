@@ -27,24 +27,20 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void AddNewPlayer(int ActorId)
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
         Debug.Log("Add");
-        OwnerRoundSystem ownerRoundSystem = GetComponent<OwnerRoundSystem>();
-        if (ownerRoundSystem != null)
-        {
-            ownerRoundSystem.AddNewPlayer(ActorId);
-        }
+        FindObjectOfType<OwnerRoundSystem>().AddNewPlayer(ActorId);   
     }
 
     [PunRPC]
     public void DefeatPlayer(int ActorId)
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
         Debug.Log("Defeat");
 
-        OwnerRoundSystem ownerRoundSystem = GetComponent<OwnerRoundSystem>();
-        if (ownerRoundSystem != null)
-        { 
-            ownerRoundSystem.DefeatPlayer(ActorId);
-        }
+        FindObjectOfType<OwnerRoundSystem>().DefeatPlayer(ActorId);
     }
 
     [PunRPC]
