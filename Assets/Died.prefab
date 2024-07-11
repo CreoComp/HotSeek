@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198046650147314752}
   - component: {fileID: 199657850576135332}
   m_Layer: 0
-  m_Name: GhostStream
+  m_Name: Died
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

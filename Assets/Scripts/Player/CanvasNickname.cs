@@ -23,7 +23,7 @@ public class CanvasNickname : MonoBehaviour
         if (direction != Vector3.zero)
         {
             Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 25f);
         }
     }
 }

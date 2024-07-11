@@ -20,7 +20,10 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     public LayerMask wallMask;
     public LayerMask climbMask;
-    public Animator animator; 
+    public Animator animator;
+
+    public float SpeedMultiplier = 1f;
+    public float JumpMultiplier = 1f;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -74,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Двигаем персонажа в направлении вращения
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir * speedMove * Time.deltaTime); 
+            controller.Move(moveDir * speedMove * SpeedMultiplier * Time.deltaTime); 
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -123,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y = Mathf.Sqrt(jumpHeight * JumpMultiplier * -2f * gravity);
             StartCoroutine(JumpAnimation());
             isJumping = true;
         }
