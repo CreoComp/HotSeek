@@ -16,6 +16,9 @@ public class Booster : MonoBehaviour
         controller = GetComponent<CharacterController>();
         view = GetComponent<PhotonView>();
 
+        if (!view.IsMine)
+            return;
+
         panelTextActiveBooster = FindObjectOfType<PanelActiveBooster>().gameObject;
         textActiveBooster = panelTextActiveBooster.GetComponentInChildren<TextMeshProUGUI>();
         RemoveText();

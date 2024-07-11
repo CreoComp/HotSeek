@@ -10,10 +10,10 @@ public class BoosterSpawner : MonoBehaviour
     };
 
     private GameObject activeBooster;
+    public int nowIndexBooster;
     void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
-            StartCoroutine(SpawnRandomBooster());
+        StartCoroutine(SpawnRandomBooster());
     }
 
     IEnumerator SpawnRandomBooster()
@@ -22,7 +22,12 @@ public class BoosterSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(15, 30));
             if(activeBooster == null)
-            activeBooster = PhotonNetwork.Instantiate(boosters[Random.Range(0, boosters.Length)], transform.position, Quaternion.identity);
+            activeBooster = PhotonNetwork.Instantiate(boosters[nowIndexBooster], transform.position, Quaternion.identity);
+            nowIndexBooster++;
+            if(nowIndexBooster > boosters.Length - 1)
+            {
+                nowIndexBooster = 0;
+            }
         }
     }
 }
