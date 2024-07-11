@@ -6,11 +6,10 @@ public class BoosterSpawner : MonoBehaviour
 {
     private string[] boosters = new string[]
     {
-        "Speed", "Jump", "Teleport", "Vision"
+        "Speed", "Jump", "Teleport", "Gun", "Vision"
     };
 
     private GameObject activeBooster;
-    public int nowIndexBooster;
     void Start()
     {
         StartCoroutine(SpawnRandomBooster());
@@ -21,13 +20,8 @@ public class BoosterSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(15, 30));
-            Destroy(activeBooster);
-            activeBooster = PhotonNetwork.Instantiate(boosters[nowIndexBooster], transform.position, Quaternion.identity);
-            nowIndexBooster++;
-            if(nowIndexBooster > boosters.Length - 1)
-            {
-                nowIndexBooster = 0;
-            }
+            if(activeBooster == null)
+            activeBooster = PhotonNetwork.Instantiate(boosters[Random.Range(0, boosters.Length)], transform.position, Quaternion.identity);
         }
     }
 }
