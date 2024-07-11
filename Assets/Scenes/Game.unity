@@ -2535,6 +2535,7 @@ GameObject:
   - component: {fileID: 1994692007}
   - component: {fileID: 1994692009}
   - component: {fileID: 1994692008}
+  - component: {fileID: 1994692010}
   m_Layer: 10
   m_Name: PanelBooster
   m_TagString: Untagged
@@ -2600,6 +2601,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994692006}
   m_CullTransparentMesh: 1
+--- !u!114 &1994692010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994692006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b991649a3e01aac4c8b1ea86e439c692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2009010726
 GameObject:
   m_ObjectHideFlags: 0
