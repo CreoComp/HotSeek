@@ -7,11 +7,15 @@ public class RoundSystem: MonoBehaviour
     private PlayerTimerText playerTimerText;
     private PhotonView view;
     private OwnerRoundSystem ownerRoundSystem;
+    private CharacterController controller;
+    private float attackForce = 15f;
+
 
     private void Start()
     {
         playerTimerText = FindObjectOfType<PlayerTimerText>();
         view = GetComponent<PhotonView>();
+        controller = GetComponent<CharacterController>();
 
         if (PhotonNetwork.IsMasterClient && view.IsMine)
         {
@@ -99,6 +103,22 @@ public class RoundSystem: MonoBehaviour
     {
         Camera.main.GetComponent<SpectatorMode>().SetMode(view);
         view.RPC("DestroyClientWhenHimDefeat", RpcTarget.AllBuffered, view.ControllerActorNr);
+    }
+
+    [PunRPC]
+    public void PushMeAway(int ActorID, int x, int y, int z)
+    {
+        if (ActorID == view.ControllerActorNr && view.IsMine)
+            StartCoroutine(Push(new Vector3(x, y, z)));
+    }
+
+    public IEnumerator Push(Vector3 playerAttacking)
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            controller.Move((transform.position - playerAttacking) * attackForce);
+            yield return new WaitForSeconds(1f / 100f);
+        }
     }
 
     PhotonView FindPhotonViewByControllerActorNr(int actorNumber)

@@ -12,8 +12,6 @@ public class Booster : MonoBehaviour
     private GameObject panelTextActiveBooster;
     private TextMeshProUGUI textActiveBooster;
 
-    private float attackForce = 15f;
-
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -86,22 +84,6 @@ public class Booster : MonoBehaviour
             activeBooster = GetComponent<IBoostable>();
             Destroy(other.gameObject);
             SetText();
-        }
-    }
-
-    [PunRPC]
-    public void PushMeAway(int ActorID, int x, int y, int z)
-    {
-        if(ActorID == view.ControllerActorNr && view.IsMine)
-        StartCoroutine(Push(new Vector3(x,y,z)));
-    }
-
-    public IEnumerator Push(Vector3 playerAttacking)
-    {
-        for (int i = 0; i < 100; i++)
-        {
-            controller.Move((transform.position - playerAttacking) * attackForce);
-            yield return new WaitForSeconds(1f / 100f);
         }
     }
 }
