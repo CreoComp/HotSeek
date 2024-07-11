@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class BoosterSpawner : MonoBehaviour
 {
-    private GameObject[] boosters;
+    private string[] boosters = new string[]
+    {
+        "Speed", "Jump", "Teleport", "Gun", "Vision"
+    };
 
     private GameObject activeBooster;
     void Start()
     {
-        boosters = Resources.LoadAll<GameObject>("Boosters");
-
         if (PhotonNetwork.IsMasterClient)
             StartCoroutine(SpawnRandomBooster());
     }
@@ -21,7 +22,7 @@ public class BoosterSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(15, 30));
             if(activeBooster == null)
-            activeBooster = PhotonNetwork.Instantiate(boosters[Random.Range(0, boosters.Length)].name, transform.position, Quaternion.identity);
+            activeBooster = PhotonNetwork.Instantiate(boosters[Random.Range(0, boosters.Length)], transform.position, Quaternion.identity);
         }
     }
 }
