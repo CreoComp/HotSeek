@@ -6,7 +6,7 @@ public class BoosterSpawner : MonoBehaviour
 {
     private string[] boosters = new string[]
     {
-        "Speed", "Jump", "Teleport", "Gun", "Vision"
+        "Speed", "Jump", "Teleport", "Vision"
     };
 
     private GameObject activeBooster;
