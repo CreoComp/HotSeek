@@ -1,5 +1,4 @@
 using Photon.Pun;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -24,23 +23,32 @@ public class Booster : MonoBehaviour
 
     private void Update()
     {
+        if (!view.IsMine)
+            return;
+
         if (Input.GetKeyDown(KeyCode.LeftAlt) && activeBooster != null)
             activeBooster.Boost();
     }
 
     public void SetText()
     {
+        if (!view.IsMine)
+            return;
         panelTextActiveBooster.SetActive(true);
         textActiveBooster.text = "Доступный бустер\n" + "<size=40><color=green>" + activeBooster.NameBooster();
     }
 
     public void RemoveText()
     {
+        if (!view.IsMine)
+            return;
         panelTextActiveBooster.SetActive(false);
     }
 
     public void UseBooster()
     {
+        if (!view.IsMine)
+            return;
         activeBooster = null;
         RemoveText();
     }
@@ -48,6 +56,7 @@ public class Booster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(view.GetInstanceID());
         if (!view.IsMine)
             return;
 
