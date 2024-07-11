@@ -14,6 +14,7 @@ public class PlayerCamera : MonoBehaviour
     private float yaw = 0f; // Угол вращения по оси Y
 
     public float y_Offset;
+    //public float zoomSensitivity = 0.1f; 
 
     void Start()
     {
@@ -33,6 +34,13 @@ public class PlayerCamera : MonoBehaviour
 
         // Ограничение высоты вращения камеры
         pitch = Mathf.Clamp(pitch, minY, maxY);
+
+        /* Обработка ввода колесика мыши для изменения расстояния
+        float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
+        distance -= scrollDelta * zoomSensitivity; */
+
+        /* Проверка минимального и максимального расстояния
+        distance = Mathf.Clamp(distance, 1f, 20f); */
 
         // Вычисление новой позиции камеры
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
