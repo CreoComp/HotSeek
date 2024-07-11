@@ -56,46 +56,45 @@ public class Booster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(view.GetInstanceID());
-        if (!view.IsMine)
-            return;
-
         if(other.TryGetComponent(out PickableBooster boosterTrigger))
         {
-            if(activeBooster != null)
+            if (view.IsMine)
             {
-                activeBooster.DestroyComponent();
+                if (activeBooster != null)
+                {
+                    activeBooster.DestroyComponent();
+                }
+                switch (boosterTrigger.Type)
+                {
+                    case BoosterType.Speed:
+                        var booster1 = gameObject.AddComponent<BoosterSpeed>();
+                        booster1.Construct(this, GetComponent<PlayerMovement>());
+                        break;
+
+                    case BoosterType.Jump:
+                        var booster2 = gameObject.AddComponent<BoosterJump>();
+                        booster2.Construct(this, GetComponent<PlayerMovement>());
+                        break;
+
+                    case BoosterType.Teleport:
+                        var booster3 = gameObject.AddComponent<BoosterTeleport>();
+                        booster3.Construct(this, controller, rayStart);
+                        break;
+
+                    case BoosterType.Gun:
+                        var booster4 = gameObject.AddComponent<BoosterGun>();
+                        booster4.Construct(this, controller, rayStart);
+                        break;
+
+                    case BoosterType.GlobalVision:
+                        var booster5 = gameObject.AddComponent<BoosterGlobalVision>();
+                        booster5.Construct(this);
+                        break;
+                }
+                activeBooster = GetComponent<IBoostable>();
+                SetText();
             }
-            switch(boosterTrigger.Type)
-            {
-                case BoosterType.Speed:
-                    var booster1 = gameObject.AddComponent<BoosterSpeed>();
-                    booster1.Construct(this, GetComponent<PlayerMovement>());
-                    break;
-
-                case BoosterType.Jump:
-                    var booster2 = gameObject.AddComponent<BoosterJump>();
-                    booster2.Construct(this, GetComponent<PlayerMovement>());
-                    break;
-
-                case BoosterType.Teleport:
-                    var booster3 = gameObject.AddComponent<BoosterTeleport>();
-                    booster3.Construct(this, controller, rayStart);
-                    break;
-
-                case BoosterType.Gun:
-                    var booster4 = gameObject.AddComponent<BoosterGun>();
-                    booster4.Construct(this, controller, rayStart);
-                    break;
-
-                case BoosterType.GlobalVision:
-                    var booster5 = gameObject.AddComponent<BoosterGlobalVision>();
-                    booster5.Construct(this);
-                    break;
-            }
-            activeBooster = GetComponent<IBoostable>();
             PhotonNetwork.Destroy(other.gameObject);
-            SetText();
         }
     }
 }
