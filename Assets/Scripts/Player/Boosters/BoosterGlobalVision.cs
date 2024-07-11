@@ -18,6 +18,7 @@ public class BoosterGlobalVision : MonoBehaviour, IBoostable
 
     public void Boost()
     {
+        StopCoroutine(SetVision());
         StartCoroutine(SetVision());
     }
 

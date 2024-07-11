@@ -108,6 +108,7 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void PushMeAway(int ActorID, int x, int y, int z)
     {
+        Debug.Log("push me" + ActorID);
         if (ActorID == view.ControllerActorNr && view.IsMine)
             StartCoroutine(Push(new Vector3(x, y, z)));
     }
