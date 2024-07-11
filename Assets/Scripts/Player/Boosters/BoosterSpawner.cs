@@ -21,7 +21,7 @@ public class BoosterSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(15, 30));
-            if(activeBooster == null)
+            Destroy(activeBooster);
             activeBooster = PhotonNetwork.Instantiate(boosters[nowIndexBooster], transform.position, Quaternion.identity);
             nowIndexBooster++;
             if(nowIndexBooster > boosters.Length - 1)
