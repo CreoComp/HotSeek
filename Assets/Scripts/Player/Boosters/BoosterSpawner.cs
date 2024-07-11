@@ -5,6 +5,8 @@ using UnityEngine;
 public class BoosterSpawner : MonoBehaviour
 {
     private GameObject[] boosters;
+
+    private GameObject activeBooster;
     void Start()
     {
         boosters = Resources.LoadAll<GameObject>("Boosters");
@@ -18,7 +20,8 @@ public class BoosterSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(15, 30));
-            PhotonNetwork.Instantiate(boosters[Random.Range(0, boosters.Length)].name, transform.position, Quaternion.identity);
+            if(activeBooster == null)
+            activeBooster = PhotonNetwork.Instantiate(boosters[Random.Range(0, boosters.Length)].name, transform.position, Quaternion.identity);
         }
     }
 }
