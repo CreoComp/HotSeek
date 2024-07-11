@@ -1971,7 +1971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bcad30ef801f914a8a703673c42539b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowIndexBooster: 4
+  nowIndexBooster: 3
 --- !u!4 &1095460370
 Transform:
   m_ObjectHideFlags: 0
