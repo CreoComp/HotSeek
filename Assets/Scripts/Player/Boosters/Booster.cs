@@ -1,3 +1,5 @@
+using Photon.Pun;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -6,12 +8,14 @@ public class Booster : MonoBehaviour
     private IBoostable activeBooster;
     public Transform rayStart;
     private CharacterController controller;
+    private PhotonView view;
     private GameObject panelTextActiveBooster;
     private TextMeshProUGUI textActiveBooster;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        view = GetComponent<PhotonView>();
 
         panelTextActiveBooster = FindObjectOfType<PanelActiveBooster>().gameObject;
         textActiveBooster = panelTextActiveBooster.GetComponentInChildren<TextMeshProUGUI>();
@@ -44,6 +48,9 @@ public class Booster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!view.IsMine)
+            return;
+
         if(other.TryGetComponent(out PickableBooster boosterTrigger))
         {
             if(activeBooster != null)
