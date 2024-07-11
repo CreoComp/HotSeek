@@ -97,6 +97,7 @@ public class Booster : MonoBehaviour
                 activeBooster = GetComponent<IBoostable>();
                 SetText();
             }
+            if(PhotonNetwork.IsMasterClient)
             PhotonNetwork.Destroy(other.gameObject);
         }
     }
