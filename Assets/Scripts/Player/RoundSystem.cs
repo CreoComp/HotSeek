@@ -24,7 +24,7 @@ public class RoundSystem: MonoBehaviour
         }
 
         if(view.IsMine)
-        view.RPC("AddNewPlayer", RpcTarget.AllBuffered, view.ControllerActorNr);
+        view.RPC("AddNewPlayer", RpcTarget.MasterClient, view.ControllerActorNr);
     }
 
 
@@ -36,8 +36,6 @@ public class RoundSystem: MonoBehaviour
     [PunRPC]
     public void AddNewPlayer(int ActorId)
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
         Debug.Log("Add");
         FindObjectOfType<OwnerRoundSystem>().AddNewPlayer(ActorId);   
     }
