@@ -209,9 +209,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (isDownRaycast && !isUpRaycast)
+        if (isDownRaycast && !isUpRaycast && !isGrounded)
         {
-
             animator.SetTrigger("ClimbStart");
             StartCoroutine(PerformClimb((transform.position + Vector3.up * climbHeight) + transform.forward));
         }
@@ -240,7 +239,6 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
             isFalling = true;
         }
-
     }
 
     System.Collections.IEnumerator PerformClimb(Vector3 targetPoint)
