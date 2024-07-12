@@ -25,6 +25,11 @@ public class SpectatorMode: MonoBehaviour
             {
                 players.RemoveAt(i);
             }
+            if (players[i].GetComponent<CatchPlayer>() == null)
+            {
+                players.RemoveAt(i);
+                i--;
+            }
         }
 
         SetSpectateToPlayer(players[playerIndex]);
