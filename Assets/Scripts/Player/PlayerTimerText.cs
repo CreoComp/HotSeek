@@ -7,8 +7,8 @@ public class PlayerTimerText: MonoBehaviour
     public TextMeshProUGUI textTimer;
     public bool isTimerToStart;
     public bool isStarted;
-    private float startTimeValue = 10f;
-    private float timeBtwBoomValue = 15f;
+    private float startTimeValue = 15f;
+    private float timeBtwBoomValue = 60f;
     private float time;
 
     private OwnerRoundSystem ownerRoundSystem;

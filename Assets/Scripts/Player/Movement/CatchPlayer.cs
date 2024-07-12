@@ -8,7 +8,7 @@ public class CatchPlayer : MonoBehaviourPun
     private TextMeshProUGUI textCatch;
     private bool isHotPotato;
     public Transform rayStartPosition;
-    public float distance = 5f;
+    public float distance = 2.5f;
     private PhotonView view;
 
     public bool IsHotPotato => isHotPotato;
