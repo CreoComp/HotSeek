@@ -14,7 +14,8 @@ public class PlayerCamera : MonoBehaviour
     private float yaw = 0f; // Угол вращения по оси Y
 
     public float y_Offset;
-    //public float zoomSensitivity = 0.1f; 
+    public float zoomSensitivity = 10f;
+    public float y_OffsetTarget;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class PlayerCamera : MonoBehaviour
 
     void LateUpdate()
     {
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y + y_OffsetTarget, target.position.z);
         // Получение ввода от мыши
         float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
         float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed;
@@ -35,16 +37,27 @@ public class PlayerCamera : MonoBehaviour
         // Ограничение высоты вращения камеры
         pitch = Mathf.Clamp(pitch, minY, maxY);
 
-        /* Обработка ввода колесика мыши для изменения расстояния
+        //Обработка ввода колесика мыши для изменения расстояния
         float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
-        distance -= scrollDelta * zoomSensitivity; */
+        distance -= scrollDelta * zoomSensitivity;
 
-        /* Проверка минимального и максимального расстояния
-        distance = Mathf.Clamp(distance, 1f, 20f); */
+        //Проверка минимального и максимального расстояния
+        distance = Mathf.Clamp(distance, 1f, 20f);
 
         // Вычисление новой позиции камеры
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
-        Vector3 desiredPosition = new Vector3(target.position.x, target.position.y + y_Offset, target.position.z) - rotation * Vector3.forward * distance;
+        Vector3 desiredPosition = new Vector3(targetPosition.x, targetPosition.y + y_Offset, targetPosition.z) - rotation * Vector3.forward * distance;
+
+        // Prevent camera from going underground
+        desiredPosition.y = Mathf.Max(desiredPosition.y, targetPosition.y + 0.1f);
+
+        // Raycast to check for obstacles
+        RaycastHit hit;
+        if (Physics.Raycast(targetPosition, desiredPosition - targetPosition, out hit, distance))
+        {
+            // If there's an obstacle, adjust the camera position to avoid it
+            desiredPosition = targetPosition + (desiredPosition - targetPosition).normalized * (hit.distance - 0.1f);
+        }
 
         // Применение сглаживания к позиции камеры
         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
