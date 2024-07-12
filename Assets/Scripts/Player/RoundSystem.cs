@@ -138,7 +138,7 @@ public class RoundSystem: MonoBehaviour
         PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
         foreach (PhotonView _view in photonViews)
         {
-            if (_view.ControllerActorNr == PhotonNetwork.LocalPlayer.ActorNumber)
+            if (_view.ControllerActorNr == PhotonNetwork.LocalPlayer.ActorNumber && _view.GetComponent<CatchPlayer>() != null)
             {
                 return _view;
             }
