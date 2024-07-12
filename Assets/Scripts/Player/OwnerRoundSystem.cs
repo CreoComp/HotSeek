@@ -65,7 +65,7 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
         PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
         foreach (PhotonView view in photonViews)
         {
-            if (view.ControllerActorNr == actorNumber)
+            if (view.ControllerActorNr == actorNumber && view.GetComponent<CatchPlayer>() != null)
             {
                 return view;
             }
@@ -78,7 +78,7 @@ public class OwnerRoundSystem: MonoBehaviourPunCallbacks
         PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
         foreach (PhotonView view in photonViews)
         {
-            if (view.GetComponent<CatchPlayer>().IsHotPotato)
+            if (view.GetComponent<CatchPlayer>().IsHotPotato && view.GetComponent<CatchPlayer>() != null)
             {
                 return view;
             }

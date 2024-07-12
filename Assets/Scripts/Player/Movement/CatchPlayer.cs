@@ -87,7 +87,7 @@ public class CatchPlayer : MonoBehaviourPun
         PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
         foreach (PhotonView view in photonViews)
         {
-            if (view.ControllerActorNr == actorNumber)
+            if (view.ControllerActorNr == actorNumber && view.GetComponent<CatchPlayer>() != null)
             {
                 return view;
             }
